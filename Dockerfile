@@ -19,6 +19,10 @@ RUN \
 # Define mountable directories.
 VOLUME ["/etc/nginx/sites-enabled", "/etc/nginx/certs", "/etc/nginx/conf.d", "/var/log/nginx", "/var/www/html"]
 
+# forward NGINX request and error logs to docker log collector
+RUN ln -sf /dev/stdout /var/log/nginx/access.log \
+	  && ln -sf /dev/stderr /var/log/nginx/error.log
+
 # Define working directory.
 WORKDIR /etc/nginx
 
